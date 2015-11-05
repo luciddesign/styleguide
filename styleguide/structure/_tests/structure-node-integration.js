@@ -236,6 +236,8 @@ INTEGRATION_TEST.run = function(PORT) {
         globalAssetFileCheckModifiedTime('/styleguide/assets/styles/styleguide.scss',
             function () {
                 removeTestModule();
+                createTestModule();
+                removeTestModule();
             }, function(fileWasUpdated) {
                 t.equal(fileWasUpdated, true, 'Actual modified time is bigger than the original modified time.');
                 createTestModule();
@@ -281,7 +283,7 @@ INTEGRATION_TEST.run = function(PORT) {
             process.exit();
         }
 
-        exec('cp -R ' + basePath + '/styleguide/structure/_tests/mocks/00_testmodule ' + basePath + '/styleguide/modules/00_testmodule');
+        createTestModule();
 
         setTimeout(function() {
             data = JSON.parse(fs.readFileSync(basePath + '/styleguide/modules/00_testmodule/_data.json'));
